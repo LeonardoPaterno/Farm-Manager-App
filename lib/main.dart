@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/src/features/auth/application/auth_service.dart';
 import 'package:myapp/src/features/auth/infrastructure/firebase_auth_repository.dart';
+import 'package:myapp/src/features/auth/presentation/login_screen.dart';
+import 'package:myapp/src/features/home/presentation/home_screen.dart';
 import 'package:myapp/src/providers/theme_provider.dart';
 import 'package:myapp/src/theme/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -73,45 +75,6 @@ class AuthWrapper extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.helloWorld),
-      ),
-      body: const Center(
-        child: Text('Login Screen'),
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context, listen: false);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Screen'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () => authService.signOut(),
-          )
-        ],
-      ),
-      body: const Center(
-        child: Text('Home Screen'),
-      ),
     );
   }
 }
