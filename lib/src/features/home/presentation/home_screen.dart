@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/src/features/animals/presentation/animals_list_screen.dart';
 import 'package:myapp/src/features/home/presentation/dashboard_screen.dart';
 import 'package:myapp/src/features/home/presentation/farms_screen.dart';
 import 'package:myapp/src/features/home/presentation/profile_screen.dart';
@@ -16,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     DashboardScreen(),
     FarmsScreen(),
+    AnimalsListScreen(),
     ProfileScreen(),
   ];
 
@@ -40,6 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.agriculture),
             label: 'Farms',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pets),
+            label: 'Animals',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
