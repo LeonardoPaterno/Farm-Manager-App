@@ -6,7 +6,6 @@ import 'package:myapp/src/features/home/presentation/home_screen.dart';
 import 'package:myapp/src/providers/theme_provider.dart';
 import 'package:myapp/src/theme/app_theme.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:myapp/src/l10n/app_localizations.dart'; // Caminho corrigido
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

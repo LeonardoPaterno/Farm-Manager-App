@@ -81,12 +81,14 @@ class AnimalDetailsScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final animals = await animalService.getAnimals(farmId);
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) =>
-                  AddProductionScreen(farmId: farmId, animals: animals),
-            ),
-          );
+          if (context.mounted) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    AddProductionScreen(farmId: farmId, animals: animals),
+              ),
+            );
+          }
         },
         child: const Icon(Icons.add),
       ),

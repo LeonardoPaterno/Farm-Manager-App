@@ -29,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
           _passwordController.text,
         );
       } on firebase_auth.FirebaseAuthException catch (e) {
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.message ?? 'Authentication failed')),
         );
@@ -54,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
           _passwordController.text,
         );
       } on firebase_auth.FirebaseAuthException catch (e) {
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.message ?? 'Registration failed')),
         );

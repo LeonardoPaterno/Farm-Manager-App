@@ -38,7 +38,6 @@ class _AddProductionScreenState extends State<AddProductionScreen> {
                 validator: (value) => value!.isEmpty ? 'Campo obrigatório' : null,
               ),
               DropdownButtonFormField<String>(
-                value: _selectedAnimalId,
                 hint: const Text('Selecione um animal'),
                 items: widget.animals.map((animal) {
                   return DropdownMenuItem(value: animal.id, child: Text(animal.name));
@@ -59,6 +58,7 @@ class _AddProductionScreenState extends State<AddProductionScreen> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
+                  final buildContext = context;
                   if (_formKey.currentState!.validate()) {
                     final newProduction = Production(
                       productionDate: _parseDate(_productionDateController.text),
@@ -71,7 +71,9 @@ class _AddProductionScreenState extends State<AddProductionScreen> {
                       _selectedAnimalId!,
                       newProduction,
                     );
-                    Navigator.of(context).pop();
+                    if (buildContext.mounted) {
+                      Navigator.of(buildContext).pop();
+                    }
                   }
                 },
                 child: const Text('Salvar'),

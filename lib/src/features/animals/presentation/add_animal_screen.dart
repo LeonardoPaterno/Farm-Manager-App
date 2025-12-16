@@ -83,6 +83,7 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
+                  final buildContext = context;
                   if (_formKey.currentState!.validate()) {
                     final newAnimal = Animal(
                       name: _nameController.text,
@@ -98,7 +99,9 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
                       registrationDate: DateTime.now(),
                     );
                     await _animalService.addAnimal(widget.farmId, newAnimal);
-                    Navigator.of(context).pop();
+                    if (buildContext.mounted) {
+                      Navigator.of(buildContext).pop();
+                    }
                   }
                 },
                 child: const Text('Salvar'),
@@ -111,6 +114,7 @@ class _AddAnimalScreenState extends State<AddAnimalScreen> {
   }
 
   DateTime _parseDate(String date) {
+    if (date.isEmpty) return DateTime.now();
     final parts = date.split('/');
     return DateTime(int.parse(parts[2]), int.parse(parts[1]), int.parse(parts[0]));
   }

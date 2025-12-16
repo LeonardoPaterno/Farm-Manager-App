@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:myapp/src/features/auth/domain/app_user.dart';
 import 'package:myapp/src/features/auth/infrastructure/firebase_auth_repository.dart';
 
