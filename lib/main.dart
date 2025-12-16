@@ -1,19 +1,116 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/src/features/auth/application/auth_service.dart';
+import 'package:myapp/src/features/auth/infrastructure/firebase_auth_repository.dart';
+import 'package:myapp/src/providers/theme_provider.dart';
+import 'package:myapp/src/theme/app_theme.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
-void main() {
-  runApp(const MainApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        Provider<FirebaseAuthRepository>(
+          create: (_) => FirebaseAuthRepository(firebase_auth.FirebaseAuth.instance),
+        ),
+        Provider<AuthService>(
+          create: (context) => AuthService(context.read<FirebaseAuthRepository>()),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return MaterialApp(
+          title: 'Farm Manager',
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: themeProvider.themeMode,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const AuthWrapper(),
+        );
+      },
+    );
+  }
+}
+
+class AuthWrapper extends StatelessWidget {
+  const AuthWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context, listen: false);
+    return StreamBuilder<dynamic>(
+      stream: authService.authStateChanges,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.active) {
+          final user = snapshot.data;
+          if (user == null) {
+            return const LoginScreen();
+          }
+          return const HomeScreen();
+        }
+        return const Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.helloWorld),
+      ),
+      body: const Center(
+        child: Text('Login Screen'),
+      ),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context, listen: false);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home Screen'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () => authService.signOut(),
+          )
+        ],
+      ),
+      body: const Center(
+        child: Text('Home Screen'),
       ),
     );
   }
