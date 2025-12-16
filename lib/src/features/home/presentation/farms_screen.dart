@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/src/features/home/application/firestore_service.dart';
 import 'package:myapp/src/features/home/presentation/add_farm_screen.dart';
+import 'package:myapp/src/features/home/presentation/farm_details_screen.dart';
 
 class FarmsScreen extends StatelessWidget {
   const FarmsScreen({super.key});
@@ -48,7 +49,11 @@ class FarmsScreen extends StatelessWidget {
                   subtitle: Text(farm['location']),
                   trailing: const Icon(Icons.arrow_forward_ios),
                   onTap: () {
-                    // Navegar para os detalhes da fazenda (será implementado posteriormente)
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => FarmDetailsScreen(farm: farm),
+                      ),
+                    );
                   },
                 ),
               );

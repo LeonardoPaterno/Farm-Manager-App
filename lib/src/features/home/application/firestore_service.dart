@@ -4,8 +4,13 @@ class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Stream<List<Map<String, dynamic>>> farmsStream() {
-    return _db.collection('farms').snapshots().map((snapshot) =>
-        snapshot.docs.map((doc) => doc.data()).toList());
+    return _db.collection('farms').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final farm = doc.data();
+        farm['id'] = doc.id;
+        return farm;
+      }).toList();
+    });
   }
 
   Future<void> addFarm(String name, String location) {
@@ -13,5 +18,10 @@ class FirestoreService {
       'name': name,
       'location': location,
     });
+  }
+
+  Stream<List<Map<String, dynamic>>> fieldsStream(String farmId) {
+    return _db.collection('farms').doc(farmId).collection('fields').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => doc.data()).toList());
   }
 }
