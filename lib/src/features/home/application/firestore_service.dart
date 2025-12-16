@@ -24,4 +24,10 @@ class FirestoreService {
     return _db.collection('farms').doc(farmId).collection('fields').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => doc.data()).toList());
   }
+
+  Future<void> addField(String farmId, String name) {
+    return _db.collection('farms').doc(farmId).collection('fields').add({
+      'name': name,
+    });
+  }
 }

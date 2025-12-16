@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/src/features/home/application/firestore_service.dart';
+import 'package:myapp/src/features/home/presentation/add_field_screen.dart';
 
 class FarmDetailsScreen extends StatelessWidget {
   final Map<String, dynamic> farm;
@@ -51,6 +52,16 @@ class FarmDetailsScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => AddFieldScreen(farmId: farm['id']),
+            ),
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
