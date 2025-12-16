@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:myapp/src/l10n/app_localizations.dart'; // Caminho corrigido
 import 'package:myapp/src/features/auth/application/auth_service.dart';
 import 'package:provider/provider.dart';
 
