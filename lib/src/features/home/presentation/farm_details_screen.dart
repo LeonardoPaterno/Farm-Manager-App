@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/src/features/animals/presentation/animals_list_screen.dart';
 import 'package:myapp/src/features/home/application/firestore_service.dart';
 import 'package:myapp/src/features/home/presentation/add_field_screen.dart';
 
@@ -15,6 +16,19 @@ class FarmDetailsScreen extends StatelessWidget {
       appBar: AppBar(title: Text(farm['name'])),
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AnimalsListScreen(farmId: farm['id']),
+                  ),
+                );
+              },
+              child: const Text('Ver Animais'),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(

@@ -25,15 +25,6 @@ class ProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'Nome',
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            Text(
-              user?.displayName ?? 'Não informado',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 20),
-            Text(
               'E-mail',
               style: Theme.of(context).textTheme.titleSmall,
             ),
