@@ -6,12 +6,8 @@ class FarmsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My Farms')),
-      body: const Center(child: Text('Farms List')),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () { /* TODO: Add new farm logic */ },
-        child: const Icon(Icons.add),
-      ),
+      appBar: AppBar(title: const Text('Farms')),
+      body: const Center(child: Text('Farms Content')),
     );
   }
 }

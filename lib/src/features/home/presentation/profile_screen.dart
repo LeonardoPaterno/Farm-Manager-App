@@ -7,22 +7,14 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context, listen: false);
-    final user = authService.currentUser;
-
     return Scaffold(
       appBar: AppBar(title: const Text('Profile')),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Email: ${user?.email ?? 'N/A'}'),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => authService.signOut(),
-              child: const Text('Sign Out'),
-            ),
-          ],
+        child: ElevatedButton(
+          onPressed: () {
+            Provider.of<AuthService>(context, listen: false).signOut();
+          },
+          child: const Text('Sign Out'),
         ),
       ),
     );
