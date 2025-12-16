@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/src/features/home/application/firestore_service.dart';
+import 'package:myapp/src/features/home/presentation/add_farm_screen.dart';
 
 class FarmsScreen extends StatelessWidget {
   const FarmsScreen({super.key});
@@ -15,7 +16,9 @@ class FarmsScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              // Adicionar nova fazenda (será implementado na próxima etapa)
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const AddFarmScreen()),
+              );
             },
           ),
         ],
